@@ -32,17 +32,12 @@ public class ParFiles extends Thread{
         
         // Variables de lectura
         String filename = "so_data/index_data_"+ n +".csv";
-        String output_filename = "output_data/describe_data_"+ n +".csv";
+        String output_filename = "output_data/output_data_"+ n +".csv";
         String line = "";  
         String splitBy = ",";
         Integer conteo = 0;  
 
         // Descripción de descriptores
-        // DescriptiveStatistics stats_open = new DescriptiveStatistics();
-        // DescriptiveStatistics stats_high = new DescriptiveStatistics();
-        // DescriptiveStatistics stats_low = new DescriptiveStatistics();
-        // DescriptiveStatistics stats_close = new DescriptiveStatistics();
-
         DescriptiveStats stats_open = new DescriptiveStats();
         DescriptiveStats stats_high = new DescriptiveStats();
         DescriptiveStats stats_low = new DescriptiveStats();
