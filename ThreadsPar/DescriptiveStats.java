@@ -7,36 +7,48 @@ import java.lang.Math;
 public class DescriptiveStats {
     
     // Atributes 
-    ArrayList<Double> lista;
+    ArrayList<Integer> lista;
     Double mean;
     Double std;
     Double min;
     Double max;
-    int n; 
+    int sumatoria;
+    int n;
+     
 
     // Contructor
     public DescriptiveStats(){
-        this.lista = new ArrayList<Double>();
-        this.n = 0;  
+        this.lista = new ArrayList<Integer>();
+        this.n = 0;
+        this.sumatoria = 0; 
     }
 
     // Añade el valor a la lista
-    public void addValue(double value){
+    public void addValue(int value){
         this.lista.add(value); 
         this.n++;
+        this.sumatoria = this.sumatoria + value;
     }
 
     // Calcula la media
+    // public Double getMean(){
+    //     double result = 0;
+    //     // int n = 0; 
+
+    //     for (Double i : this.lista){
+    //         result += i; 
+    //         // n++;
+    //     }
+
+    //     result = result / n;
+    //     this.mean = result;  
+    //     return result; 
+    // }
     public Double getMean(){
-        double result = 0;
+        double result = this.sumatoria;
         // int n = 0; 
 
-        for (Double i : this.lista){
-            result += i; 
-            // n++;
-        }
-
-        result = result / n;
+        result = result / this.n;
         this.mean = result;  
         return result; 
     }
@@ -47,12 +59,12 @@ public class DescriptiveStats {
         double meanL = this.getMean(); 
         // int n = 0; 
 
-        for (Double i : this.lista){
+        for (Integer i : this.lista){
             result += (i-meanL)*(i-meanL); 
             // n++;
         }
 
-        result = result / (n - 1); 
+        result = result / (this.n - 1); 
         result = Math.sqrt(result); 
 
         this.std = result; 
@@ -61,11 +73,11 @@ public class DescriptiveStats {
 
     // Calcula el mínimo
     public Double getMin(){
-        Double result = this.lista.get(0);
+        Double result = (double) this.lista.get(0);
 
-        for (Double i : this.lista){
+        for (Integer i : this.lista){
             if (i < result){
-                result = i; 
+                result = (double) i; 
             }
         }
 
@@ -78,9 +90,9 @@ public class DescriptiveStats {
     public Double getMax(){
         Double result = 0.0;
 
-        for (Double i : this.lista){
+        for (Integer i : this.lista){
             if (i > result){
-                result = i; 
+                result = (double) i; 
             }
         }
 
