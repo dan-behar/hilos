@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import java.io.File; 
 import java.io.FileWriter;
-// import java.util.concurrent.ExecutorService;
-// import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 
@@ -18,6 +18,7 @@ public class ParFiles extends Thread{
     int inicio; 
     int fin;
     int hilos; 
+    ExecutorService ejecutor;
 
     // Contructor
     public ParFiles(int inicio, int fin, int hilos){
@@ -56,7 +57,7 @@ public class ParFiles extends Thread{
         DescriptiveStats stats_low = new DescriptiveStats();
         DescriptiveStats stats_close = new DescriptiveStats();
 
-        // DescriptiveStats[] columnas = {stats_open, stats_high, stats_low, stats_close};
+        DescriptiveStats[] columnas = {stats_open, stats_high, stats_low, stats_close};
 
         // Se cargan los datos para hacer las estadísticas
         try   
@@ -89,207 +90,22 @@ public class ParFiles extends Thread{
             e.printStackTrace();  
         }
 
-
-         
-
-        
-
-        /* Crear un switch para todos los casos
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         */
         // creacion de un solo hilo
 
-        switch(this.hilos){
-            case 1:
-                // Definicion de trabajos
-                DescriptiveStats[] variablesA = {
-                    stats_open, stats_open, stats_open, stats_open, 
-                    stats_high, stats_high, stats_high, stats_high, 
-                    stats_low,  stats_low,  stats_low,  stats_low, 
-                    stats_close, stats_close, stats_close, stats_close
-                };
-        
-                int[] estadisticoA = {
-                    1, 2, 3, 4,
-                    1, 2, 3, 4,
-                    1, 2, 3, 4,
-                    1, 2, 3, 4 
-                };
-                
-                // Creacion de Thread
-                ParFun tr1A = new ParFun(variablesA, estadisticoA); 
-                
-                // Ejecucion de Threads 
-                tr1A.start();
-                tr1A.join();
-                break;
+        this.ejecutor = Executors.newFixedThreadPool(this.hilos);
 
-            case 2:
+        for (int i = 0; i < columnas.length; i++){
+            DescriptiveStats descriptor = columnas[i]; 
 
-                // Definicion de trabajos 
-                DescriptiveStats[] variablesB1 = {
-                    stats_open, stats_open, stats_open, stats_open, 
-                    stats_high, stats_high, stats_high, stats_high 
-                };
-
-                DescriptiveStats[] variablesB2 = { 
-                    stats_low,  stats_low,  stats_low,  stats_low, 
-                    stats_close, stats_close, stats_close, stats_close
-                };
-        
-                int[] estadisticoB1 = {
-                    1, 2, 3, 4,
-                    1, 2, 3, 4 
-                };
-                
-                // Creacion de Threads
-                ParFun tr1B = new ParFun(variablesB1, estadisticoB1);
-                ParFun tr2B = new ParFun(variablesB2, estadisticoB1);
-
-
-                // Ejecucion de Threads
-                tr1B.start();
-                tr2B.start();
-
-                tr1B.join();
-                tr2B.join();
-        
-                break;
-            
-            case 4: 
-                // Definicion de trabajos 
-                DescriptiveStats[] variablesC1 = {
-                    stats_open, stats_open, stats_open, stats_open 
-                };
-
-                DescriptiveStats[] variablesC2 = {
-                    stats_high, stats_high, stats_high, stats_high 
-                };
-
-                DescriptiveStats[] variablesC3 = { 
-                    stats_low,  stats_low,  stats_low,  stats_low 
-                };
-
-                DescriptiveStats[] variablesC4 = { 
-                    stats_close, stats_close, stats_close, stats_close
-                };
-        
-                int[] estadisticoC1 = {
-                    1, 2, 3, 4 
-                };
-                
-                // Creacion de Threads
-                ParFun tr1C = new ParFun(variablesC1, estadisticoC1);
-                ParFun tr2C = new ParFun(variablesC2, estadisticoC1);
-                ParFun tr3C = new ParFun(variablesC3, estadisticoC1);
-                ParFun tr4C = new ParFun(variablesC4, estadisticoC1);
-
-
-                // Ejecucion de Threads
-                tr1C.start();
-                tr2C.start();
-                tr3C.start();
-                tr4C.start();
-
-                tr1C.join();
-                tr2C.join();
-                tr3C.join();
-                tr4C.join();
-
-                break;
-            
-            case 8: 
-                // Definicion de trabajos 
-                DescriptiveStats[] variablesD1 = {
-                    stats_open 
-                };
-
-                DescriptiveStats[] variablesD2 = {
-                    stats_high 
-                };
-
-                DescriptiveStats[] variablesD3 = { 
-                    stats_low 
-                };
-
-                DescriptiveStats[] variablesD4 = { 
-                    stats_close
-                };
-
-                DescriptiveStats[] variablesD5 = {
-                    stats_open, stats_open, stats_open 
-                };
-
-                DescriptiveStats[] variablesD6 = {
-                    stats_high, stats_high, stats_high 
-                };
-
-                DescriptiveStats[] variablesD7 = { 
-                    stats_low, stats_low,  stats_low 
-                };
-
-                DescriptiveStats[] variablesD8 = { 
-                    stats_close, stats_close, stats_close
-                };
-
-                int[] estadisticoD1 = {
-                    2
-                };
-
-                int[] estadisticoD2 = {
-                    1, 3, 4 
-                };
-
-                
-                // Creacion de Threads
-                ParFun tr1D = new ParFun(variablesD1, estadisticoD1);
-                ParFun tr2D = new ParFun(variablesD2, estadisticoD1);
-                ParFun tr3D = new ParFun(variablesD3, estadisticoD1);
-                ParFun tr4D = new ParFun(variablesD4, estadisticoD1);
-
-                ParFun tr5D = new ParFun(variablesD5, estadisticoD2);
-                ParFun tr6D = new ParFun(variablesD6, estadisticoD2);
-                ParFun tr7D = new ParFun(variablesD7, estadisticoD2);
-                ParFun tr8D = new ParFun(variablesD8, estadisticoD2);
-
-
-                // Ejecucion de Threads
-                tr1D.start();
-                tr2D.start();
-                tr3D.start();
-                tr4D.start();
-                tr5D.start();
-                tr6D.start();
-                tr7D.start();
-                tr8D.start();
-
-                tr1D.join();
-                tr2D.join();
-                tr3D.join();
-                tr4D.join();
-                tr5D.join();
-                tr6D.join();
-                tr7D.join();
-                tr8D.join();
-
-                break;
-            default: 
-                System.out.println("La eleccion de hilos es invalida");
-                break;
+            this.ejecutor.execute(new PoolUser(descriptor, 1)); 
+            this.ejecutor.execute(new PoolUser(descriptor, 2)); 
+            this.ejecutor.execute(new PoolUser(descriptor, 3)); 
+            this.ejecutor.execute(new PoolUser(descriptor, 4));
         }
-        
+
+        this.ejecutor.shutdown();
+
+        while(!this.ejecutor.isTerminated()){}        
 
         // Se genera el archivo
         try {
