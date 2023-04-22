@@ -3,7 +3,6 @@ package ThreadsPar;
 import java.io.BufferedReader;  
 import java.io.FileReader;  
 import java.io.IOException;
-// import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import java.io.File; 
 import java.io.FileWriter;
@@ -11,33 +10,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-
-public class ParFiles extends Thread{
-
+public class PoolUserFILES implements Runnable{
     // Atributos 
-    int inicio; 
-    int fin;
+    int file;
     int hilos; 
     ExecutorService ejecutor;
 
     // Contructor
-    public ParFiles(int inicio, int fin, int hilos){
-        this.inicio = inicio; 
-        this.fin = fin;
+    public PoolUserFILES(int file, int hilos){
+        this.file = file;
         this.hilos = hilos;
     }
 
-    // Runner
     public void run(){
-        for (int i = inicio; i < (fin + 1); i++){
-            try {
-                descriptorData(i);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+        try {
+            this.descriptorData(this.file);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } 
+    }  
 
     public void descriptorData(int n) throws InterruptedException{
         

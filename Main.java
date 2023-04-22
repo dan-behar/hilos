@@ -1,14 +1,5 @@
 import ThreadsPar.ParFiles;
 
-// Agregar caso de 8 hilos para archivos (LISTO)
-// crear archivo con el tiempo ("Txt con el tiempo") 
-// Volumenes de docker para el resultado 
-// Modificar el descriptor
-// Paralelizar funciones 
-
-// numero de cores 
-// cantidad de memoria
-
 public class Main {
     public static void main(String args[]) throws InterruptedException 
     {   
