@@ -100,11 +100,11 @@ public class ParFiles extends Thread{
             FileWriter myWriter = new FileWriter(output_filename);
             
             myWriter.write("stats,Open,High,Low,Close\n");
-            myWriter.write("count," + openStats[0] + ","+  highStats[0] + ","+  lowStats[0] + ","+  closeStats[0] + "\n");
-            myWriter.write("mean," + openStats[1] + ","+  highStats[1] + ","+  lowStats[1] + ","+  closeStats[1] + "\n");
-            myWriter.write("std," + openStats[2] + ","+  highStats[2] + ","+  lowStats[2] + ","+  closeStats[2] + "\n");
-            myWriter.write("min," + openStats[3] + ","+  highStats[3] + ","+  lowStats[3] + ","+  closeStats[3] + "\n");
-            myWriter.write("max," + openStats[4] + ","+  highStats[4] + ","+  lowStats[4] + ","+  closeStats[4] + "\n");
+            myWriter.write("count," + conteo + ","+  conteo + ","+  conteo + ","+  conteo + "\n");
+            myWriter.write("mean,"  + stats_open.getCalMean().toString() + ","+  stats_high.getCalMean().toString() + ","+  stats_low.getCalMean().toString() + ","+  stats_close.getCalMean().toString() + "\n");
+            myWriter.write("std,"   + stats_open.getCalStd().toString() + ","+  stats_high.getCalStd().toString() + ","+  stats_low.getCalStd().toString() + ","+  stats_close.getCalStd().toString() + "\n");
+            myWriter.write("min,"   + stats_open.getCalMin().toString() + ","+  stats_high.getCalMin().toString() + ","+  stats_low.getCalMin().toString() + ","+  stats_close.getCalMin().toString() + "\n");
+            myWriter.write("max,"   + stats_open.getCalMax().toString() + ","+  stats_high.getCalMax().toString() + ","+  stats_low.getCalMax().toString() + ","+  stats_close.getCalMax().toString() + "\n");
 
             myWriter.close();
 
