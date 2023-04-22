@@ -7,6 +7,9 @@ import java.io.IOException;
 
 import java.io.File; 
 import java.io.FileWriter;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 
 public class ParFiles extends Thread{
@@ -24,11 +27,15 @@ public class ParFiles extends Thread{
     // Runner
     public void run(){
         for (int i = inicio; i < (fin + 1); i++){
-            descriptorData(i);
+            try {
+                descriptorData(i);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void descriptorData(int n){
+    public void descriptorData(int n) throws InterruptedException{
         
         // Variables de lectura
         String filename = "so_data/index_data_"+ n +".csv";
@@ -42,6 +49,8 @@ public class ParFiles extends Thread{
         DescriptiveStats stats_high = new DescriptiveStats();
         DescriptiveStats stats_low = new DescriptiveStats();
         DescriptiveStats stats_close = new DescriptiveStats();
+
+        // DescriptiveStats[] columnas = {stats_open, stats_high, stats_low, stats_close};
 
         // Se cargan los datos para hacer las estadísticas
         try   
@@ -65,7 +74,7 @@ public class ParFiles extends Thread{
                 conteo++; 
 
                 // Thread.sleep(1000);
-            } 
+            }
 
             buffer.close();
         } 
@@ -74,11 +83,52 @@ public class ParFiles extends Thread{
             e.printStackTrace();  
         }
 
-        // se generan las estadísticas
-        double[] openStats = {conteo, stats_open.getMean(), stats_open.getStandardDeviation(), stats_open.getMin(), stats_open.getMax()};
-        double[] highStats = {conteo, stats_high.getMean(), stats_high.getStandardDeviation(), stats_high.getMin(), stats_high.getMax()}; 
-        double[] lowStats = {conteo, stats_low.getMean(), stats_low.getStandardDeviation(), stats_low.getMin(), stats_low.getMax()}; 
-        double[] closeStats = {conteo, stats_close.getMean(), stats_close.getStandardDeviation(), stats_close.getMin(), stats_close.getMax()}; 
+
+         
+
+        
+
+        /* Crear un switch para todos los casos
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
+        // creacion de un solo hilo
+
+
+
+        
+        DescriptiveStats[] variables = {
+            stats_open, stats_open, stats_open, stats_open, 
+            stats_high, stats_high, stats_high, stats_high, 
+            stats_low,  stats_low,  stats_low,  stats_low, 
+            stats_close, stats_close, stats_close, stats_close
+        };
+
+        int[] estadistico = {
+            1, 2, 3, 4,
+            1, 2, 3, 4,
+            1, 2, 3, 4,
+            1, 2, 3, 4 
+        };
+
+        ParFun tr1 = new ParFun(variables, estadistico); 
+
+        tr1.start();
+        tr1.join();
+        
+
+        
 
         // Se genera el archivo
         try {
@@ -101,10 +151,10 @@ public class ParFiles extends Thread{
             
             myWriter.write("stats,Open,High,Low,Close\n");
             myWriter.write("count," + conteo + ","+  conteo + ","+  conteo + ","+  conteo + "\n");
-            myWriter.write("mean,"  + stats_open.getCalMean().toString() + ","+  stats_high.getCalMean().toString() + ","+  stats_low.getCalMean().toString() + ","+  stats_close.getCalMean().toString() + "\n");
-            myWriter.write("std,"   + stats_open.getCalStd().toString() + ","+  stats_high.getCalStd().toString() + ","+  stats_low.getCalStd().toString() + ","+  stats_close.getCalStd().toString() + "\n");
-            myWriter.write("min,"   + stats_open.getCalMin().toString() + ","+  stats_high.getCalMin().toString() + ","+  stats_low.getCalMin().toString() + ","+  stats_close.getCalMin().toString() + "\n");
-            myWriter.write("max,"   + stats_open.getCalMax().toString() + ","+  stats_high.getCalMax().toString() + ","+  stats_low.getCalMax().toString() + ","+  stats_close.getCalMax().toString() + "\n");
+            myWriter.write("mean,"  + stats_open.getCalMean() + ","+  stats_high.getCalMean().toString() + ","+  stats_low.getCalMean().toString() + ","+  stats_close.getCalMean().toString() + "\n");
+            myWriter.write("std,"   + stats_open.getCalStd() + ","+  stats_high.getCalStd().toString() + ","+  stats_low.getCalStd().toString() + ","+  stats_close.getCalStd().toString() + "\n");
+            myWriter.write("min,"   + stats_open.getCalMin()+ ","+  stats_high.getCalMin().toString() + ","+  stats_low.getCalMin().toString() + ","+  stats_close.getCalMin().toString() + "\n");
+            myWriter.write("max,"   + stats_open.getCalMax() + ","+  stats_high.getCalMax().toString() + ","+  stats_low.getCalMax().toString() + ","+  stats_close.getCalMax().toString() + "\n");
 
             myWriter.close();
 

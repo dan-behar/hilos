@@ -29,11 +29,11 @@ public class DescriptiveStats {
     // Calcula la media
     public Double getMean(){
         double result = 0;
-        //int n = 0; 
+        // int n = 0; 
 
         for (Double i : this.lista){
             result += i; 
-            n++;
+            // n++;
         }
 
         result = result / n;
@@ -44,12 +44,12 @@ public class DescriptiveStats {
     // Calcula la desviacion estandar
     public Double getStandardDeviation(){
         double result = 0;
-        double mean = this.getMean(); 
-        //int n = 0; 
+        double meanL = this.getMean(); 
+        // int n = 0; 
 
         for (Double i : this.lista){
-            result += (i-mean)*(i-mean); 
-            n++;
+            result += (i-meanL)*(i-meanL); 
+            // n++;
         }
 
         result = result / (n - 1); 
