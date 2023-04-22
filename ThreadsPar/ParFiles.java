@@ -20,10 +20,10 @@ public class ParFiles extends Thread{
     int hilos; 
 
     // Contructor
-    public ParFiles(int inicio, int fin){
+    public ParFiles(int inicio, int fin, int hilos){
         this.inicio = inicio; 
         this.fin = fin;
-        this.hilos = 1;
+        this.hilos = hilos;
     }
 
     // Runner
@@ -35,6 +35,10 @@ public class ParFiles extends Thread{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void funcionesRun(){
+
     }
 
     public void descriptorData(int n) throws InterruptedException{
@@ -106,8 +110,6 @@ public class ParFiles extends Thread{
          * 
          */
         // creacion de un solo hilo
-
-
 
         switch(this.hilos){
             case 1:
@@ -205,31 +207,49 @@ public class ParFiles extends Thread{
                 tr2C.join();
                 tr3C.join();
                 tr4C.join();
+
+                break;
             
             case 8: 
                 // Definicion de trabajos 
                 DescriptiveStats[] variablesD1 = {
-                    stats_open, stats_open 
+                    stats_open 
                 };
 
                 DescriptiveStats[] variablesD2 = {
-                    stats_high, stats_high 
+                    stats_high 
                 };
 
                 DescriptiveStats[] variablesD3 = { 
-                    stats_low,  stats_low 
+                    stats_low 
                 };
 
                 DescriptiveStats[] variablesD4 = { 
-                    stats_close, stats_close
+                    stats_close
+                };
+
+                DescriptiveStats[] variablesD5 = {
+                    stats_open, stats_open, stats_open 
+                };
+
+                DescriptiveStats[] variablesD6 = {
+                    stats_high, stats_high, stats_high 
+                };
+
+                DescriptiveStats[] variablesD7 = { 
+                    stats_low, stats_low,  stats_low 
+                };
+
+                DescriptiveStats[] variablesD8 = { 
+                    stats_close, stats_close, stats_close
                 };
 
                 int[] estadisticoD1 = {
-                    1, 2
+                    2
                 };
 
                 int[] estadisticoD2 = {
-                    3, 4 
+                    1, 3, 4 
                 };
 
                 
@@ -239,10 +259,10 @@ public class ParFiles extends Thread{
                 ParFun tr3D = new ParFun(variablesD3, estadisticoD1);
                 ParFun tr4D = new ParFun(variablesD4, estadisticoD1);
 
-                ParFun tr5D = new ParFun(variablesD1, estadisticoD2);
-                ParFun tr6D = new ParFun(variablesD2, estadisticoD2);
-                ParFun tr7D = new ParFun(variablesD3, estadisticoD2);
-                ParFun tr8D = new ParFun(variablesD4, estadisticoD2);
+                ParFun tr5D = new ParFun(variablesD5, estadisticoD2);
+                ParFun tr6D = new ParFun(variablesD6, estadisticoD2);
+                ParFun tr7D = new ParFun(variablesD7, estadisticoD2);
+                ParFun tr8D = new ParFun(variablesD8, estadisticoD2);
 
 
                 // Ejecucion de Threads
@@ -263,6 +283,8 @@ public class ParFiles extends Thread{
                 tr6D.join();
                 tr7D.join();
                 tr8D.join();
+
+                break;
             default: 
                 System.out.println("La eleccion de hilos es invalida");
                 break;

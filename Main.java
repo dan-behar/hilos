@@ -49,15 +49,15 @@ public class Main {
 
         switch(hilos) {
             case 1:
-                ParFiles tr1A = new ParFiles(1, 999);
+                ParFiles tr1A = new ParFiles(1, 999, hilos_funciones);
                 tr1A.start();
                 tr1A.join();
                 break;
 
             case 2:
 
-                ParFiles tr1B = new ParFiles(1, 499);
-                ParFiles tr2B = new ParFiles(500, 999);
+                ParFiles tr1B = new ParFiles(1, 499, hilos_funciones);
+                ParFiles tr2B = new ParFiles(500, 999, hilos_funciones);
 
                 // Inicilizacion de hilos
                 tr1B.start();
@@ -71,10 +71,10 @@ public class Main {
                 break;
 
             case 4:
-                ParFiles tr1C = new ParFiles(1, 249);
-                ParFiles tr2C = new ParFiles(250, 499);
-                ParFiles tr3C = new ParFiles(500, 749);
-                ParFiles tr4C = new ParFiles(750, 999);
+                ParFiles tr1C = new ParFiles(1, 249, hilos_funciones);
+                ParFiles tr2C = new ParFiles(250, 499, hilos_funciones);
+                ParFiles tr3C = new ParFiles(500, 749, hilos_funciones);
+                ParFiles tr4C = new ParFiles(750, 999, hilos_funciones);
                 
                 // Inicilizacion de hilos
                 tr1C.start();
@@ -91,14 +91,14 @@ public class Main {
                 break;
 
             case 8:
-                ParFiles tr1E = new ParFiles(1, 124);
-                ParFiles tr2E = new ParFiles(125, 249);
-                ParFiles tr3E = new ParFiles(250, 374);
-                ParFiles tr4E = new ParFiles(375, 499);
-                ParFiles tr5E = new ParFiles(500, 624);
-                ParFiles tr6E = new ParFiles(625, 749);
-                ParFiles tr7E = new ParFiles(750, 874);
-                ParFiles tr8E = new ParFiles(875, 999);
+                ParFiles tr1E = new ParFiles(1, 124, hilos_funciones);
+                ParFiles tr2E = new ParFiles(125, 249, hilos_funciones);
+                ParFiles tr3E = new ParFiles(250, 374, hilos_funciones);
+                ParFiles tr4E = new ParFiles(375, 499, hilos_funciones);
+                ParFiles tr5E = new ParFiles(500, 624, hilos_funciones);
+                ParFiles tr6E = new ParFiles(625, 749, hilos_funciones);
+                ParFiles tr7E = new ParFiles(750, 874, hilos_funciones);
+                ParFiles tr8E = new ParFiles(875, 999, hilos_funciones);
 
                 // Inicilizacion de hilos 
                 tr1E.start();
@@ -125,7 +125,7 @@ public class Main {
             default:
                 System.out.println("La opcion de " + hilos + " no existe. Hilos = 1 por defecto.");
 
-                ParFiles tr1D = new ParFiles(1, 999);
+                ParFiles tr1D = new ParFiles(1, 999, hilos_funciones);
                 tr1D.start();
 
                 tr1D.join(); 
